@@ -3,734 +3,198 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-    <title>Jotta...</title>
+    <title>Jotta Store | Acesso</title>
     <style>
-
-
-   /* =======================================================
-           NOVAS REGRAS PARA O EFEITO DE ENTRADA (INÍCIO)
-           AJUSTADAS PARA: ESQUERDA -> DIREITA e MAIS RÁPIDO
-           ======================================================= */
-
-        /* 1. ESTADO INICIAL (Pré-Carregamento) */
-        body.preload * {
-            /* Mantido: Move 100% para fora da tela à esquerda */
-            opacity: 0 !important;
-            transform: translateX(-100%) !important; 
-        }
-
-
-        /* 2. DEFINIÇÃO DA TRANSIÇÃO (Para que o movimento seja suave) */
-        /* Aplicado a âncoras (a) e todos os blocos principais */
-        main, .footer-minimal, .header-content, .info-block, .cards, .produto-container, .descricao, a, img {
-            /* ALTERADO: Tempo de transição reduzido para 0.5s (mais rápido) */
-            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
         
-        /* 3. Atraso em Elementos Específicos (Efeito "cascata" mantido) */
-        .header-content { transition-delay: 0.1s; }
-        .info-block { transition-delay: 0.2s; }
-        .produto-container { transition-delay: 0.3s; }
-        .descricao { transition-delay: 0.4s; }
-        .cards { transition-delay: 0.5s; }
-        .footer-minimal { transition-delay: 0.6s; }
-
-        /* =======================================================
-           NOVAS REGRAS PARA O EFEITO DE ENTRADA (FIM)
-           ======================================================= */
-        
-       
-        /* Estilos Globais */
         body {
-            font-size: small;
-            font-family: Arial, Helvetica, sans-serif;
-            background-color: rgb(227, 241, 243); /* Cor de fundo base */
-            margin: 0; /* Remove margem padrão do body */
-            padding: 0;
-            text-align: left;
-        }
-
-        /* ... (Restante do seu CSS original) ... */
-        /* Estilo Principal (Container Central) */
-        main {
-            background-color: aliceblue;
-            padding: 20px;
-            border-radius: 10px;
-            max-width: 1900px;
-            min-width: 300px;
-            margin: 20px auto; /* Centraliza o bloco main */
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Seção 1: Cabeçalho e Títulos */
-        .header-content {
-            background: linear-gradient(to left, #f5f5f7 0%, #081374 100%);
-            border: 2px solid rgb(236, 241, 245);
-            border-radius: 0.6rem;
-            padding: 70px 20px 150px;
-            color: rgb(243, 242, 248);
-            text-align: center;
-            margin: -18px;
-            margin-top: -19px;
-            margin-right: 50px;
-            margin-left: -3 px;
-          
-        }
-
-        h1 {
-            font-size: 1.8em;
-            margin-left: 0;
-            text-align: center;
-        }
-
-        h2 {
-            font-size: 1.2em;
-            color: rgb(31, 16, 3);
-            margin: 0;
-        }
-
-        /* Container de Produtos/Imagens (Flexbox) */
-        .produto-container {
+            height: 100vh;
             display: flex;
-            flex-wrap: wrap; /* Permite que os itens quebrem a linha */
-            justify-content: center; /* Centraliza os itens */
-            gap: 20px; /* Espaço entre os itens */
-            padding: 20px;
-            text-align: center;
-        }
-
-
-
-
-        /* Estilo das imagens */
-        .produto-container img {
-            max-width: 100%; /* Garante que a imagem se ajuste ao seu contêiner */
-            height: auto;
-            border: 5px solid rgb(18, 170, 170);
-            border-radius: 1rem;
-            margin: 10px;
-        }
-
-        /* Estilos dos blocos de conteúdo */
-        .info-block {
-            
-            color: rgb(6, 6, 62);
-            padding: 50px;
-            border-style: outset;
-            border-color: rgba(222, 227, 228, 0.877);
-            border-width: 3px;
-            border-radius: 0.7em;
-            background: linear-gradient(to left, #7f5209 0%, #e7e5e0 100%);
-            margin-bottom: 10px;
-            margin: -2px;
-            margin-left: 70px;
-            margin-right: -2px;
-            
-        }
-
-        /* Parágrafos da segunda seção */
-        p.descricao {
-            background-color: rgb(125, 130, 131);
-            padding: 30px;
-            
-            text-align: justify;
-          
-        }
-
-        /* Estilos para cards do criador */
-        .cards {
-            perspective: 300px;
-            border: 3px solid rgb(141, 205, 213);
-            padding: 5px;
-            margin-top: 30px;
-            height: auto;
-            text-align: center;
-            background: linear-gradient(to left, #85c4e9 0%, #072027 100%);
-        }
-
-        .card {
-            width: 100%; /* Largura ajustada */
-            max-width: 1150px;
-            height: 150px; /* Altura ajustada */
-            background: #030a35;
-            border: 4px solid #94a59c;
-            border-radius: 2px;
-            border-bottom: 40px;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            overflow: hidden; /* Evita barras de rolagem pela animação do fundo */
             position: relative;
-            transform-style: preserve-3d;
-            transition: transform .5s;
-            margin: 10px auto; /* Centraliza */
-        }
-        .card a {
-            color: white;
-            text-decoration: none;
-        }
-        h4 a {
-    color: rgb(217, 3, 71);           /* Altera a cor para branco */
-    text-decoration: none;  /* Opcional: remove o sublinhado */
-}
-/* Garante que o cálculo de largura inclua bordas e preenchimentos */
-* {
-  box-sizing: border-box;
-}
-
-/* Impede a rolagem horizontal no corpo do site */
-body, html {
-  overflow-x: hidden;
-  width: 100%;
-}
-        /* --- MEDIA QUERIES PARA RESPONSIVIDADE --- */
-
-        /* Para telas menores que 768px (tablets e celulares) */
-        @media (max-width: 768px) {
-            main {
-                margin: 0px; /* Remove margem lateral no mobile */
-                padding: 10px;
-                border-radius: 0;
-            }
-    .header-content {
-                padding: 40px 10px 80px;
-            }
-
-       P{text-align: justify;
-    font-family: Arial, Helvetica, sans-serif;
-font-size:xx-large;}
-
-
-            /* Faz o container de imagens se comportar como coluna ou simplesmente empilha */
-            .produto-container {
-                flex-direction: column;
-                align-items: center;
-                padding: 10px;
-            }
-
-            .produto-container img {
-                margin-left: 0;
-                margin-right: 0;
-                max-width: 90%; /* Limita a largura da imagem para não estourar */
-                display: block;
-            }
-
-            p.descricao {
-                width: auto; /* Remove largura fixa */
-                margin: 10px 0;
-                padding: 15px;
-            }
-
-            .cards {
-                padding: 10px;
-            }
         }
 
-        /* Para telas muito pequenas (celulares) */
-        @media (max-width: 480px) {
-            body {
-                font-size: 100%; /* Ajusta tamanho da fonte base */
-            }
-            .header-content {
-                padding: 30px 5px 60px;
-            }
+        /* Camada da Imagem com Movimento */
+        .background-image {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            /* Substitua pelo caminho da sua imagem de roupas */
+            background: url('imagens/fundo-login.jpg') no-repeat center center;
+            background-size: cover;
+            z-index: -2;
+            filter: brightness(0.4); /* Escurece para dar foco ao login */
+            animation: moveBackground 20s ease-in-out infinite alternate;
         }
 
-        button {
-            /* Define o tamanho da fonte */
-            font-size: 1.4em;
-            /* Adiciona preenchimento inte  rno para aumentar a altura e largura */
-            padding: 10px 20px;
-            /* Adiciona um fundo verde para destaque */
-            background-color: #1f7d21;
-            /* Melhora a cor do texto */
-            color: white;
-            /* Remove a borda padrão */
-            border: none;
-            /* Borda arredondada */
-            border-radius: 5px;
-            /* Cursor de clique */
-            cursor: pointer;
+        /* Camada de Gradiente para suavizar as bordas */
+        .background-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle, rgba(10,11,16,0.4) 0%, #050508 100%);
+            z-index: -1;
         }
 
-        /* Interação Visual: Faz a imagem "pular" e mudar de cor ao passar o mouse */
-        .produto-container a img {
-            transition: transform 0.3s ease, border-color 0.3s ease;
-            cursor: pointer;
+        /* Animação de movimento suave (Zoom e Pan) */
+        @keyframes moveBackground {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1) translateX(-10px); }
         }
-        .produto-container a:hover img {
-            transform: scale(1.05);
-            border-color: rgb(74, 183, 190);
-           box-shadow: #f50c0c;
-        } 
 
-        /* Efeito Visual para testar a interação nas imagens SEM link */
-        .produto-container img {
-            transition: transform 0.3s ease, opacity 0.7s ease ;
-        }
-        .produto-container img:not(:only-child):hover {
-            opacity: 0.9; /* Escurece levemente a imagem ao passar o mouse (para as sem <a>) */
-        }
-        
-        /* --- ESTILOS LIGHTBOX --- */
-        #lightbox {
-            /* Garante que cubra a tela inteira e fique por cima de tudo */
-            display: none; /* Começa escondido */
-            position: fixed;
-            z-index: 1000; /* Alto valor para ficar na frente */
-            left: 0;
-            top: 0;
+        .login-card {
+            background: rgba(22, 27, 34, 0.85); /* Transparência para o efeito vidro */
+            padding: 40px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
             width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.9); /* Fundo escuro transparente */
+            max-width: 380px;
+            text-align: center;
+            backdrop-filter: blur(10px); /* O "pulo do gato" para o efeito vidro fosco */
+            z-index: 10;
         }
 
-        #lightbox-img {
-            /* Estilo para a imagem dentro do lightbox */
-            display: block;
-            margin: 10% auto; /* Centraliza verticalmente (ajuste conforme o tamanho da imagem) */
-            width: 90%;
-            max-width: 900px; /* Largura máxima para a imagem ampliada */
-            height: auto;
-            border: 5px solid white;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        .login-card h2 { color: #58a6ff; margin-bottom: 10px; font-size: 28px; letter-spacing: 1px; }
+        .login-card p { color: #8b949e; margin-bottom: 30px; font-size: 14px; }
+
+        .input-group { text-align: left; margin-bottom: 20px; }
+        .input-group label { display: block; margin-bottom: 8px; color: #f0f6fc; font-size: 14px; }
+        
+        input {
+            width: 100%;
+            padding: 12px;
+            background: rgba(13, 17, 23, 0.8);
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            color: white;
+            outline: none;
+            transition: 0.3s;
         }
 
-        /* Garante que o span da imagem não feche o lightbox ao clicar na imagem */
-        #lightbox span {
-            display: block;
-        }
+        input:focus { border-color: #58a6ff; box-shadow: 0 0 0 2px rgba(88,166,255,0.3); }
 
-        /* Media Query para telas menores */
-        @media (max-width: 768px) {
-            #lightbox-img {
-                margin: 20% auto; /* Ajustado para melhor visualização em telas pequenas */
-                width: 95%;
-            }
-        }
-
-
-         
-        .footer-minimal {
-            background-color: #1a1a1a; /* Cinza Escuro / Preto */
-            color: #ffffff;
-            padding: 40px 20px 20px;
-            font-family: Arial, sans-serif;
-        }
-
-        .footer-container {
-            display: flex;
-            justify-content: space-around;
-            max-width: 1200px;
-            margin: 0 auto 30px;
-            flex-wrap: wrap; /* Permite quebrar linha em telas menores */
-            gap: 20px;
-        }
-
-        .footer-column {
-            width: 250px; /* Largura base para colunas */
-        }
-
-        .footer-logo {
-            font-size: 1.8em;
+        .btn-principal {
+            width: 100%;
+            padding: 14px;
+            background: #238636;
+            color: white;
+            border: none;
+            border-radius: 6px;
             font-weight: bold;
-            margin-bottom: 15px;
-            letter-spacing: 1px;
-        }
-
-        .links-group h4 {
-            font-size: 1.1em;
+            cursor: pointer;
+            font-size: 16px;
+            transition: 0.3s;
             margin-bottom: 15px;
             text-transform: uppercase;
         }
 
-        .links-group ul {
-            list-style: none;
-            padding: 0;
-        }
+        .btn-principal:hover { background: #2ea043; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(46, 160, 67, 0.4); }
 
-        .links-group li {
-            margin-bottom: 8px;
-        }
-
-
-
-        .links-group a {
-            color: #cccccc;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .links-group a:hover {
-            color: #1f9b53; /* Destaque Laranja ou Amarelo */
-        }
-
-        /* Newsletter */
-        .newsletter-form input {
-            padding: 10px;
-            border: none;
-            border-radius: 4px 0 0 4px;
-            width: 60%;
-        }
-      
-        .newsletter-form button {
-            padding: 10px;
-            border: none;
-            background-color: #ff9900;
-            color: #1a1a1a;
-            border-radius: 0 4px 4px 0;
+        .alternar {
+            color: #58a6ff;
+            font-size: 13px;
             cursor: pointer;
-            font-weight: bold;
-            transition: background-color 0.3s;
+            text-decoration: none;
+            transition: 0.3s;
         }
 
-        .newsletter-form button:hover {
-            background-color: #e69215;
-        }
+        .alternar:hover { text-decoration: underline; color: #79c0ff; }
 
-        /* Rodapé Inferior */
-        .footer-bottom {
-            border-top: 1px solid #333333;
-            padding-top: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        /* Responsividade Básica */
-        @media (max-width: 768px) {
-            .footer-container {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-            }
-
-            .footer-column {
-                width: 100%;
-                margin-bottom: 25px;
-            }
-
-            .footer-bottom {
-                flex-direction: column;
-                text-align: center;
-            }
-        }
-        
-
-        /* ---------------------------------------------------- */
-/* NOVO CSS PARA A SEÇÃO DE E-MAIL (email-input-section) */
-/* ---------------------------------------------------- */
-
-/* 1. Contêiner da Seção de E-mail (Para centralizar input e botão) */
-.email-input-section {
-    display: flex; /* Usa Flexbox para alinhar lado a lado */
-    justify-content: center; /* Centraliza o input/botão na horizontal */
-    align-items: center; 
-    margin-bottom: 30px; 
-    flex-wrap: wrap; 
-}
-
-/* 2. Campo de E-mail (Ajuste de Largura) */
-.email-input-section input[type="email"] {
-    /* ESTA É A LINHA PRINCIPAL QUE ALONGA: */
-    width: 350px; /* Largura maior para a barra */
-    max-width: 400px; /* Limite máximo (opcional) */
-    
-    /* Outros estilos de alinhamento e aparência: */
-    padding: 10px; 
-    border: none;
-    border-radius: 4px; 
-    box-sizing: border-box; 
-    margin-right: 5px; 
-}
-
-/* 3. Estilo do Parágrafo de Instrução (Garante que ocupe 100% e centralize) */
-.email-input-section p:first-of-type {
-    width: 100%; 
-    text-align: center;
-    margin-bottom: 10px;
-}
-
-/* 4. Estilo do Botão */
-#confirmarBtn {
-    padding: 10px 20px; /* Mantém a altura do input */
-    background-color: #2b812e; 
-    color: white;
-    border-radius: 4px; 
-    flex-shrink: 0;
-    transition: background-color 0.3s;
-}
-
-#confirmarBtn:hover {
-     background-color: #1a741d; /* Cor mais escura ao passar o mouse */
-}
-
-/* Ajuste de responsividade para telas menores */
-@media (max-width: 768px) {
-    /* NOVO: Ajusta o formulário de e-mail em telas pequenas */
-    .email-input-section {
-        flex-direction: column; /* Empilha o input e o botão */
-    }
-
-    .email-input-section input[type="email"] {
-        width: 90%; /* Ocupa quase toda a largura */
-        max-width: none;
-        margin-bottom: 10px;
-        margin-right: 0;
-    }
-}
-
-
-
-
-
-
-
-input[type="text"] {
-  width: 350px;        /* Aumenta a largura */
-  padding: 12px;       /* Aumenta a altura e o espaço interno */
-  font-size: 16px;     /* Melhora a leitura do texto */
-  border-radius: 4px;  /* Deixa as pontas levemente arredondadas */
-  border: 1px solid #ccc;
-}
-
-
-
-
-
-
-
-
-</style>
+        .hidden { display: none; }
+    </style>
 </head>
-<body class="preload"> <div id="lightbox" onclick="fecharLightbox()">
-    <span onclick="event.stopPropagation()">
-        <img id="lightbox-img" src="" alt="Imagem ampliada">
-    </span>
-    <button onclick="fecharLightbox()" style="position: absolute; top: 20px; right: 30px; font-size: 30px; border: none; background: transparent; color: white; cursor: pointer;">&times;</button>
-</div>
-<main>
-    <div class="header-content">
-        <h1 style="color: white; margin-left: 0;">Sejam Bem Vindos À Nossa Loja!</h1>
-        <h2>
-            Aqui, você encontra a sua melhor versão <br> com conforto, qualidade e elegância. <br> Não perca tempo e Bora conferir!
-        </h2>
-    </div>
-    <br><br> <br> 
-    <div class="info-block">
-        <h3> Temos roupas e acessórios para toda família!</h3>
-        <p>Estilo, qualidade, e conforto nunca é demais.</p>
-    </div>
-<br> <br> <br>
-    <h3>Em busca de sempre proporcionar o melhor, para todos os nossos clientes. &#x2705;</h3>
+<body>
 
-    <div class="produto-container">
-        <a href="https://wa.me/5534998765432" target="_blank"><img src="delivery1.png" alt="Fazemos Delivery"></a>
-        <a href="https://wa.me/5534998765432" target="_blank"><img src="pagamentos.png" alt="Aceitamos Cartão"></a>
-        <a href="https://wa.me/5534998765432" target="_blank"><img src="white.png" alt="Camiseta Txc"></a>
-    </div>
+    <div class="background-image"></div>
+    <div class="background-overlay"></div>
 
- <H3><i>Conte mais sobre seus gostos...</i></H3>
-
-
-  <label for="nomeInput"> <strong>  Qual estilo de roupa mais te agrada?</strong> </label>   
-     <input type="text" id="nomeInput" placeholder=" Digite aqui suas preferências.">
-
-    <button id="saudarBtn">Confirmar</button>
-    
-    <p id="resposta" style="margin-top: 20px; font-weight: bold;"></p>
-
-    <br> <br>
-  
-
-    <p class="descricao"> <br> 
-        <strong><li>Um pouco mais da gente ...</li></strong>
-        <br> 
-        <ul type="1" style="margin-left: 20px;">
-            <li>Preço bom.</li>
-            <li>Ótimo atendimento.</li>
-            <li>Simplicidade.</li>
-            <li>Estilo.</li>
-        </ul>
+    <div class="login-card">
+        <h2 id="titulo">Jotta Store &trade;</h2>
+        <p id="subtitulo">Identifique-se para acessar a loja</p>
         
-        <strong><li>Qualidade ... </li></strong>
-        <br>
-        <ul type="1" start="5" style="margin-left: 20px;">
-            <li>Sinceridade.</li>
-            <li>Compromisso.</li>
-            <li>Caráter.</li>
-            <li>Bom ambiente.</li>
-        </ul>
-    </p>
-
-    <div class="produto-container">
-       <a href="https://wa.me/5534998765432"  target="_blank"> <img src="white1.png" alt="Camisetas Txc"></a>
-      <strong>  <i>Não pensa muito em...</i> </strong> 
-    
-        Bora levar?
-        <a href="https://wa.me/5534998765432" target="_blank"><img src="blac11.png" alt="Camisetas Txc"></a>
-      <a href="https://wa.me/5534998765432" target="_blank">  <img src="jbl.png" alt="JBL"></a>
-       <a href="https://wa.me/5534998765432" target="_blank"> <img src="jeans.png" alt="Short Jeans"></a>
-       <a href="https://wa.me/5534998765432" target="_blank"> <img src="fone1.png" alt="Fone de Ouvido"></a>
-    </div>
-    
-    <P>Acreditamos que qualquer pessoa pode ser levada a tomar atitudes boas ao sentir-se confiante, a aparência realmente em si não é o principal mas, nem por isso deixa de ser algo importante. E aqui vamos trazer ela de volta, e vamos entregar mais ainda à quem tem. Estamos trazendo várias inovações na medida em que o nosso estoque começa a diminuir, sempre mantendo um padrão de excelência para todos os nosso queridos clientes. Conforme o tempo vai passando também vamos sempre procurando novos estilos para agregar algo a mais em nosso meio, desejamos que curtam tudo aquilo que vamos oferecer. Nossa principal função, é <strong> promulgar (criar) e trazer diversos modelos versáteis </strong> que seja bom para todos os gostos, sempre pensando no bem estar e claro o melhor estilo para você e sua família. Esperamos que aproveitem nossas ofertas, chama todo mundo e vem! será sempre um prazer atendê-los.</P>
-
-    <div class="cards">
-    <br><br></strong>
-
-    <h4>
-        
-        Atendimento via DM.
-        Tupaciguara-MG 📍<br>
-        R. Antônio Gonçalves de Oliveira 82 <br>
-        Parceiros:
-         <a href="https://www.instagram.com/closet.ppink/" rel="_self">@closet.ppink</a><br>
-    </h4>
-
-        <figure class="card">
-            <figcaption class="card_title"> <br> <br> <br> <br> 
-                <a href="https://www.instagram.com/jotta.sstore/" rel="_self">Clique aqui para acessar o instagram da nossa loja!</a> 
-            </b>
-                
-            </figcaption>
-        </figure>
-
-
-        Jotta &trade;
-    </div>
-</main>
-
-<script>
-    /*
-        JAVASCRIPT PARA REMOVER A CLASSE 'preload'
-     */
-    window.addEventListener('load', function() {
-        // Remove a classe 'preload' do body assim que todos os recursos (imagens, etc.) forem carregados.
-        // Isso dispara a transição CSS em cascata definida na tag <style>.
-        document.body.classList.remove('preload') ;
-    });
-
-
-    // Função para abrir o lightbox
-    function abrirLightbox(srcImagem) {
-        document.getElementById('lightbox').style.display = 'block';
-        document.getElementById('lightbox-img').src = srcImagem;
-    }
-
-    // Função para fechar o lightbox
-    function fecharLightbox() {
-        document.getElementById('lightbox').style.display = 'none' ;
-    }
-
-    // Configura o clique em TODAS as imagens no produto-container
-    document.addEventListener('DOMContentLoaded', function() {
-        // Seleciona todas as imagens dentro do .produto-container (incluindo as que estão em <a>)
-        const todasAsImagens = document.querySelectorAll('.produto-container img');
-
-        todasAsImagens.forEach(img => {
-            img.style.cursor = 'pointer'; // Adiciona o cursor de "mãozinha"
-            
-            img.addEventListener('click', function(event) {
-                // Prioriza o Lightbox: 
-                // Anula a ação padrão do link (se a imagem estiver dentro de um <a>, como o WhatsApp)
-                event.preventDefault(); 
-                
-                // Abre o Lightbox
-                abrirLightbox(this.src);
-            });
-        });
-
-        // FUNCIONALIDADE DO BOTÃO SAUDAR/RESPOSTA
-        const saudarBtn = document.getElementById('saudarBtn');
-        const nomeInput = document.getElementById('nomeInput');
-        const resposta = document.getElementById('resposta');
-
-        saudarBtn.addEventListener('click', function() {
-            if (nomeInput.value.trim() !== "") {
-                resposta.innerHTML = 'Huuum entendi..., você vai gostar dos estilos que temos, bora conferir? <br><br> <a href="https://wa.me/5534998899543" target="_blank" style="background-color: #25d366; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none; display: inline-block;">Falar no WhatsApp</a>';
-                resposta.style.color = "#081374";
-            } else {
-                resposta.textContent = "Por favor, digite seu estilo favorito acima!";
-                resposta.style.color = "red";
-            }
-        });
-    });
-</script>
-
-<footer class="footer-minimal">
- <div class="email-input-section">
-    <p><strong> Para mais informações de contato, deixe seu e-mail aqui.</strong></p>
-    <input type="email" id="emailInput" placeholder="Digite seu e-mail">
-    <button id="confirmarBtn">Confirmar</button>
-    
-    <p id="mensagem" style="margin-top: 10px; font-weight: bold;"></p>
-</div>
-
-
-        <div class="footer-container" > 
-
-            <div class="footer-column links-group">
-                <h4>Navegação:</h4>
-                <ul>
-                    <li><a href="https://wa.me/5534998899543">Novidades</a></li>
-                    <li><a href="https://wa.me/5534998899543">Camisetas</a></li>
-                    <li><li><a href="https://wa.me/5534998899543">Calças Jeans</a></li>
-                    <li><a href="https://wa.me/5534998899543">Acessórios</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-column links-group">
-                <h4>Informações adicionais:</h4>
-                <ul>
-                    <li><a href="https://wa.me/5534998899543">Ajuda</a></li>
-                    <li><a href="https://wa.me/5534998899543">Trocas e Devoluções</a></li>
-                    <li><a href="https://wa.me/5534998899543">Fale Conosco</a></li>
-                    <li><a href="https://wa.me/5534998899543">Política de Privacidade</a></li>
-                </ul>
-            </div>
-            <div class="footer-column footer-logo">
-                 Jotta &trade;
-            </div>
+        <div class="input-group hidden" id="group-nome">
+            <label>Nome Completo</label>
+            <input type="text" id="nome" placeholder="Seu nome">
         </div>
 
-    <div class="footer-bottom">
-        <p>&copy; 2025 Sua melhor versão. Todos os direitos reservados.</p>
-       
-       </div>
-</footer>
-<script>
-    // 1. Obter referências aos elementos do HTML
-    const emailInput = document.getElementById('emailInput');
-    const confirmarBtn = document.getElementById('confirmarBtn');
-    const mensagemElement = document.getElementById('mensagem');
+        <div class="input-group">
+            <label>E-mail</label>
+            <input type="email" id="email" placeholder="seu@email.com">
+        </div>
 
-    // 2. Adicionar um "ouvinte de eventos" (event listener) ao botão
-    confirmarBtn.addEventListener('click', function() {
-        // Obter o valor digitado e remover espaços em branco no início/fim
-              const email = emailInput.value.trim(); 
+        <div class="input-group">
+            <label>Senha</label>
+            <input type="password" id="senha" placeholder="••••••••">
+        </div>
+
+        <button class="btn-principal" id="btn-acao" onclick="executarAcao()">Entrar no Sistema</button>
         
-        // Expressão regular (regex) simples para validar o formato do e-mail
-        // Garante que tenha o @, e que haja texto.texto após o @
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        <br>
+        <a class="alternar" id="link-alternar" onclick="toggleTela()">Não tem conta? Cadastre-se aqui</a>
+    </div>
 
-        //  Verificar se o e-mail é válido
-        if (emailRegex.test(email)) 
-        {
-            // E-mail válido: Exibir mensagem de sucesso
-             mensagemElement.textContent = "✅ E-mail confirmado!";
-            mensagemElement.style.color = "green"; //  cor verde para sucesso!!
+    <script>
+        let modoCadastro = false;
+
+        function toggleTela() {
+            modoCadastro = !modoCadastro;
             
-            // **IMPORTANTE:** Aqui é onde se enviaria os e-mail para um servidor real meu,
-            // mas para a validação simples no front-end, isso ai ja serve.
-            
-        } else {
-            // E-mail inválido: Exibir mensagem de erro!
-            mensagemElement.textContent = "❌ Por favor, digite um e-mail válido.";
-            mensagemElement.style.color = "red"; //  cor vermelha para erro
+            const titulo = document.getElementById('titulo');
+            const subtitulo = document.getElementById('subtitulo');
+            const btnAcao = document.getElementById('btn-acao');
+            const link = document.getElementById('link-alternar');
+            const groupNome = document.getElementById('group-nome');
+
+            if (modoCadastro) {
+                titulo.innerText = "Criar Conta";
+                subtitulo.innerText = "Preencha os dados abaixo";
+                btnAcao.innerText = "Finalizar Cadastro";
+                link.innerText = "Já tem conta? Faça login";
+                groupNome.classList.remove('hidden');
+            } else {
+                titulo.innerText = "Jotta Store";
+                subtitulo.innerText = "Identifique-se para acessar a loja";
+                btnAcao.innerText = "Entrar no Sistema";
+                link.innerText = "Não tem conta? Cadastre-se aqui";
+                groupNome.classList.add('hidden');
+            }
         }
-    });
-</script> 
 
+        async function executarAcao() {
+            const email = document.getElementById('email').value;
+            const senha = document.getElementById('senha').value;
+            const nome = document.getElementById('nome').value;
+
+            const rota = modoCadastro ? '/cadastro' : '/login';
+            const corpoDados = modoCadastro 
+                ? JSON.stringify({ nome: nome, email: email, senha: senha })
+                : JSON.stringify({ email: email, senha: senha });
+
+            try {
+                const resposta = await fetch(`http://127.0.0.1:5000${rota}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: corpoDados
+                });
+
+                const resultado = await resposta.json();
+
+                if (resposta.ok) {
+                    alert("✅ " + (modoCadastro ? "Cadastro realizado! Faça login." : "Acesso Autorizado!"));
+                    if (!modoCadastro) {
+                        window.location.href = "loja.html";
+                    } else {
+                        toggleTela();
+                    }
+                } else {
+                    alert("❌ " + (resultado.erro || "Erro na operação. Verifique os dados."));
+                }
+            } catch (erro) {
+                alert("Erro técnico: Verifique se sua API Python está rodando!");
+            }
+        }
+    </script>
 </body>
 </html>
