@@ -16,7 +16,7 @@ def banco_dados():
         port=53280
     )
 
-@app.route('/login', methods=['POST'])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     dados = request.json
     email = dados.get('email')
@@ -32,7 +32,7 @@ def login():
         return jsonify({"mensagem": "Login efetuado com sucesso!"}), 200
     return jsonify({"erro": "Dados inválidos"}), 401
 
-@app.route('/cadastro', methods=['POST'])
+@app.route('/cadastro', methods=['GET', 'POST'])
 def cadastro():
     dados = request.json
     nome = dados.get('nome')
