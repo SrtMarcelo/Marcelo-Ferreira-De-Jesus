@@ -173,7 +173,7 @@
                 : JSON.stringify({ email: email, senha: senha });
 
             try {
-                const resposta = await fetch(`http://127.0.0.1:5000${rota}`, {
+                const resposta = await fetch(`https://marcelo-ferreira-de-jesus.onrender.com${rota}`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: corpoDados

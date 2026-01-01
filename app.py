@@ -1,26 +1,21 @@
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify
 from flask_cors import CORS
 import mysql.connector
 
 app = Flask(__name__)
-CORS(app)
+CORS(app) # Isso permite que o HTML fale com o Python
 
 def banco_dados():
-    # Esta é a forma correta: o return engloba toda a conexão
     return mysql.connector.connect(
-        host="trolley.proxy.rlwy.net",
+        host="localhost",
         user="root",
-        password="EeNteZTbajQvwuSPvWFNZAQUDzNmKPsK",
-        database="railway",
-        port=53280
+        password="Mechanics775", # Coloque sua senha do MySQL
+        database="jotta_store"
     )
 
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/login', methods=['POST'])
 def login():
-    if request.method == 'GET':
-        return render_template('login.html')
-    
-    dados = request.form
+    dados = request.json
     email = dados.get('email')
     senha = dados.get('senha')
     
@@ -28,18 +23,15 @@ def login():
     cursor = conexao.cursor()
     cursor.execute("SELECT * FROM usuarios WHERE email = %s AND senha = %s", (email, senha))
     usuario = cursor.fetchone()
+    
     conexao.close()
-
     if usuario:
-        return jsonify({"mensagem": "Login efetuado com sucesso!"}), 200
+        return jsonify({"mensagem": "Login efetuado!"}), 200
     return jsonify({"erro": "Dados inválidos"}), 401
 
-@app.route('/cadastro', methods=['GET', 'POST'])
+@app.route('/cadastro', methods=['POST'])
 def cadastro():
-    if request.method == 'GET':
-        return render_template('cadastro.html')
-    
-    dados = request.form
+    dados = request.json
     nome = dados.get('nome')
     email = dados.get('email')
     senha = dados.get('senha')
@@ -57,4 +49,12 @@ def cadastro():
         conexao.close()
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)  
+    app.run(debug=True)
+    
+    import psycopg2
+import os
+
+# Esse link abaixo é o que você copiou do Render
+DATABASE_URL = "postgresql://jotta_db_user:l8bbKoHR2wUPohmT1z3IDFcV7DrS86Nx@dpg-d59u69ali9vc73as2hq0-a.oregon-postgres.render.com/jotta_db"
+
+conn = psycopg2.connect(DATABASE_URL)
