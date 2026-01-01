@@ -9,10 +9,11 @@ CORS(app) # Isso permite que o HTML fale com o Python
 
 def banco_dados():
     return mysql.connector.connect(
-        host="localhost",
+        host="trolley.proxy.rlwy.net",
         user="root",
-        password="Mechanics775", # Coloque sua senha do MySQL
-        database="jotta_store"
+        password="liKaxJhwXUbXJUbZRhECBOTpoWIXhFaa",
+        database="railway",
+        port=53280
     )
 
 @app.route('/login', methods=['POST'])
@@ -28,7 +29,7 @@ def login():
     
     conexao.close()
     if usuario:
-        return jsonify({"mensagem": "Login efetuado!"}), 200
+        return jsonify({"mensagem": "Login efetuado com sucesso!"}), 200
     return jsonify({"erro": "Dados inválidos"}), 401
 
 @app.route('/cadastro', methods=['POST'])
