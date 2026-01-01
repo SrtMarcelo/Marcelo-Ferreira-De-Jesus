@@ -11,7 +11,7 @@ def banco_dados():
     return mysql.connector.connect(
         host="trolley.proxy.rlwy.net",
         user="root",
-        password="liKaxJhwXUbXJUbZRhECBOTpoWIXhFaa",
+        password="EeNteZTbajQvwuSPvWFNZAQUDzNmKPsK",
         database="railway",
         port=53280
     )
