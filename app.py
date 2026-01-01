@@ -1,11 +1,9 @@
-
-
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template  
 from flask_cors import CORS
 import mysql.connector
 
 app = Flask(__name__)
-CORS(app) # Isso permite que o HTML fale com o Python
+CORS(app)
 
 def banco_dados():
     return mysql.connector.connect(
@@ -18,7 +16,11 @@ def banco_dados():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    dados = request.json
+    if request.method == 'GET':
+        return render_template('login.html')
+    
+    # Todo este bloco agora tem o recuo (espaço) correto
+    dados = request.form
     email = dados.get('email')
     senha = dados.get('senha')
     
@@ -26,15 +28,19 @@ def login():
     cursor = conexao.cursor()
     cursor.execute("SELECT * FROM usuarios WHERE email = %s AND senha = %s", (email, senha))
     usuario = cursor.fetchone()
-    
     conexao.close()
+
     if usuario:
         return jsonify({"mensagem": "Login efetuado com sucesso!"}), 200
     return jsonify({"erro": "Dados inválidos"}), 401
 
 @app.route('/cadastro', methods=['GET', 'POST'])
 def cadastro():
-    dados = request.json
+    if request.method == 'GET':
+        return render_template('cadastro.html')
+    
+    # Todo este bloco agora tem o recuo (espaço)
+    dados = request.form
     nome = dados.get('nome')
     email = dados.get('email')
     senha = dados.get('senha')
@@ -52,6 +58,4 @@ def cadastro():
         conexao.close()
 
 if __name__ == '__main__':
-    app.run(debug=True)
-    
-
+    app.run(host='0.0.0.0', port=5000) # Ajustado para rodar  no Render
