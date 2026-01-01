@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, render_template  
+from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 import mysql.connector
 
@@ -6,6 +6,7 @@ app = Flask(__name__)
 CORS(app)
 
 def banco_dados():
+    # Esta é a forma correta: o return engloba toda a conexão
     return mysql.connector.connect(
         host="trolley.proxy.rlwy.net",
         user="root",
@@ -19,7 +20,6 @@ def login():
     if request.method == 'GET':
         return render_template('login.html')
     
-    # Todo este bloco agora tem o recuo (espaço) correto
     dados = request.form
     email = dados.get('email')
     senha = dados.get('senha')
@@ -39,7 +39,6 @@ def cadastro():
     if request.method == 'GET':
         return render_template('cadastro.html')
     
-    # Todo este bloco agora tem o recuo (espaço)
     dados = request.form
     nome = dados.get('nome')
     email = dados.get('email')
@@ -58,4 +57,4 @@ def cadastro():
         conexao.close()
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000) # Ajustado para rodar  no Render
+    app.run(host='0.0.0.0', port=5000)
