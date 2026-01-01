@@ -6,13 +6,13 @@ app = Flask(__name__)
 CORS(app) # Isso permite que o HTML fale com o Python
 
 def banco_dados():
-    return mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="Mechanics775", # Coloque sua senha do MySQL
-        database="jotta_store"
-    )
-
+  return mysql.connector.connect(
+            host="trolley.proxy.rlwy.net",
+            user="root",
+            password="EeNteZTbajQvwuSPvWFNZAQUDzNmKPsK",
+            database="jotta_store",
+            port=53280
+        )
 @app.route('/login', methods=['POST'])
 def login():
     dados = request.json
