@@ -14,6 +14,7 @@ def banco_dados():
     DATABASE_URL = "postgresql://jotta_db_user:18bbKOHR2wUPOhmT1z3IDFcV7DrS86Nx@dpg-d59u69ali9vc73as2hq0-a.oregon-postgres.render.com/jotta_db"
     return psycopg2.connect(DATABASE_URL)
 
+# --- ROTA DE LOGIN ---
 @app.route('/login', methods=['POST'])
 def login():
     dados = request.json
@@ -29,6 +30,23 @@ def login():
     if usuario:
         return jsonify({"mensagem": "Login efetuado!"}), 200
     return jsonify({"erro": "Dados inválidos"}), 401
+
+# --- ROTA DE CADASTRO (A QUE ESTAVA FALTANDO) ---
+@app.route('/cadastro', methods=['POST'])
+def cadastro():
+    dados = request.json
+    email = dados.get('email')
+    senha = dados.get('senha')
+
+    try:
+        conexao = banco_dados()
+        cursor = conexao.cursor()
+        cursor.execute("INSERT INTO usuarios (email, senha) VALUES (%s, %s)", (email, senha))
+        conexao.commit()
+        conexao.close()
+        return jsonify({"mensagem": "Usuário cadastrado com sucesso!"}), 201
+    except Exception as e:
+        return jsonify({"erro": str(e)}), 400
 
 if __name__ == '__main__':
     app.run(debug=True)
