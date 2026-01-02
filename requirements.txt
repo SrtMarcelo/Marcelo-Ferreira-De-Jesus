@@ -1,2 +1,7 @@
-flask
-psycopg2-binary
+Flask
+
+mysql-connector-python
+
+flask-cors
+
+gunicorn
