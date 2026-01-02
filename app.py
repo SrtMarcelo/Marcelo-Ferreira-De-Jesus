@@ -6,51 +6,30 @@ import os
 app = Flask(__name__)
 CORS(app)
 
-# --- NOVA ROTA PARA RESOLVER O ERRO 404 (NOT FOUND) ---
+# 1. Rota para o site não dar mais "Not Found"
 @app.route('/')
 def home():
-    return "Servidor Online! Use /login para acessar."
+    return "Servidor Online! Use /login no seu navegador."
 
-# --- CONFIGURAÇÃO DO BANCO DE DADOS POSTGRESQL ---
+# 2. Função de conexão com o banco do Render
 def banco_dados():
     DATABASE_URL = "postgresql://jotta_db_user:l8bbKoHR2wUPohmT1z3IDFcV7DrS86Nx@dpg-d59u69ali9vc73as2hq0-a.oregon-postgres.render.com/jotta_db"
     return psycopg2.connect(DATABASE_URL)
 
+# 3. Rota de Login
 @app.route('/login', methods=['POST'])
 def login():
     dados = request.json
     email = dados.get('email')
     senha = dados.get('senha')
-    
     conexao = banco_dados()
     cursor = conexao.cursor()
-    # O PostgreSQL usa %s como marcador de posição
     cursor.execute("SELECT * FROM usuarios WHERE email = %s AND senha = %s", (email, senha))
     usuario = cursor.fetchone()
-    
     conexao.close()
     if usuario:
         return jsonify({"mensagem": "Login efetuado!"}), 200
     return jsonify({"erro": "Dados inválidos"}), 401
-
-@app.route('/cadastro', methods=['POST'])
-def cadastro():
-    dados = request.json
-    nome = dados.get('nome')
-    email = dados.get('email')
-    senha = dados.get('senha')
-
-    conexao = banco_dados()
-    cursor = conexao.cursor()
-    try:
-        sql = "INSERT INTO usuarios (nome, email, senha) VALUES (%s, %s, %s)"
-        cursor.execute(sql, (nome, email, senha))
-        conexao.commit()
-        return jsonify({"mensagem": "Cadastrado!"}), 201
-    except Exception as e:
-        return jsonify({"erro": str(e)}), 500
-    finally:
-        conexao.close()
 
 if __name__ == '__main__':
     app.run(debug=True)
