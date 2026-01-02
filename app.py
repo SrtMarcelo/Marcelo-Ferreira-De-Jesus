@@ -6,17 +6,16 @@ import os
 app = Flask(__name__)
 CORS(app)
 
-# 1. Rota para o site não dar mais "Not Found"
+# --- ISSO RESOLVE O ERRO "NOT FOUND" ---
 @app.route('/')
 def home():
     return "Servidor Online! Use /login no seu navegador."
 
-# 2. Função de conexão com o banco do Render
+# --- CONFIGURAÇÃO DO BANCO DO RENDER ---
 def banco_dados():
     DATABASE_URL = "postgresql://jotta_db_user:l8bbKoHR2wUPohmT1z3IDFcV7DrS86Nx@dpg-d59u69ali9vc73as2hq0-a.oregon-postgres.render.com/jotta_db"
     return psycopg2.connect(DATABASE_URL)
 
-# 3. Rota de Login
 @app.route('/login', methods=['POST'])
 def login():
     dados = request.json
