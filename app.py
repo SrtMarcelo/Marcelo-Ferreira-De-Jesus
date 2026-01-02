@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import mysql.connector
-
+import psycopg2
 app = Flask(__name__)
 CORS(app) # Isso permite que o HTML fale com o Python
 
