@@ -9,7 +9,7 @@ CORS(app)
 # --- FUNÇÃO PARA CONECTAR AO BANCO ---
 def banco_dados():
     # Adicionamos o ?sslmode=require para o Render aceitar a conexão segura
-   DATABASE_URL =" postgresql://jotta_db_user:l8bbKoHR2wUPohmT1z3IDFcV7DrS86Nx@dpg-d59u69ali9vc73as2hq0-a.oregon-postgres.render.com/jotta_db?sslmode=require"
+   DATABASE_URL ="postgresql://jotta_db_user:l8bbKoHR2wUPohmT1z3IDFcV7DrS86Nx@dpg-d59u69ali9vc73as2hq0-a.oregon-postgres.render.com/jotta_db?sslmode=require"
    return psycopg2.connect(DATABASE_URL)
 
 # --- CRIA A TABELA AUTOMATICAMENTE SE ELA NÃO EXISTIR ---
