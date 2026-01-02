@@ -1,18 +1,21 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-import mysql.connector
 import psycopg2
-app = Flask(__name__)
-CORS(app) # Isso permite que o HTML fale com o Python
+import os
 
+app = Flask(__name__)
+CORS(app)
+
+# --- NOVA ROTA PARA RESOLVER O ERRO 404 (NOT FOUND) ---
+@app.route('/')
+def home():
+    return "Servidor Online! Use /login para acessar."
+
+# --- CONFIGURAÇÃO DO BANCO DE DADOS POSTGRESQL ---
 def banco_dados():
-  return mysql.connector.connect(
-            host="trolley.proxy.rlwy.net",
-            user="root",
-            password="EeNteZTbajQvwuSPvWFNZAQUDzNmKPsK",
-            database="jotta_store",
-            port=53280
-        )
+    DATABASE_URL = "postgresql://jotta_db_user:l8bbKoHR2wUPohmT1z3IDFcV7DrS86Nx@dpg-d59u69ali9vc73as2hq0-a.oregon-postgres.render.com/jotta_db"
+    return psycopg2.connect(DATABASE_URL)
+
 @app.route('/login', methods=['POST'])
 def login():
     dados = request.json
@@ -21,6 +24,7 @@ def login():
     
     conexao = banco_dados()
     cursor = conexao.cursor()
+    # O PostgreSQL usa %s como marcador de posição
     cursor.execute("SELECT * FROM usuarios WHERE email = %s AND senha = %s", (email, senha))
     usuario = cursor.fetchone()
     
@@ -50,11 +54,3 @@ def cadastro():
 
 if __name__ == '__main__':
     app.run(debug=True)
-    
-    import psycopg2
-import os
-
-# Esse link abaixo é o que você copiou do Render
-DATABASE_URL = "postgresql://jotta_db_user:l8bbKoHR2wUPohmT1z3IDFcV7DrS86Nx@dpg-d59u69ali9vc73as2hq0-a.oregon-postgres.render.com/jotta_db"
-
-conn = psycopg2.connect(DATABASE_URL)
