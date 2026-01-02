@@ -20,6 +20,14 @@
     <button onclick="fecharLightbox()" style="position: absolute; top: 20px; right: 30px; font-size: 30px; border: none; background: transparent; color: white; cursor: pointer;">&times;</button>
 </section> 
 <main>
+    <section style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px; margin: 20px 0; text-align: center;">
+    <h3 style="color: white;">Acesse sua conta ou Cadastre-se</h3>
+    <input type="email" id="email" placeholder="Digite seu e-mail" style="padding: 10px; margin: 5px; border-radius: 5px; border: none;">
+    <input type="password" id="senha" placeholder="Digite sua senha" style="padding: 10px; margin: 5px; border-radius: 5px; border: none;">
+    <br>
+    <button onclick="fazerLogin()" style="padding: 10px 20px; background-color: #081374; color: white; border: none; border-radius: 5px; cursor: pointer; margin: 5px;">Entrar</button>
+    <button onclick="cadastrarUsuario()" style="padding: 10px 20px; background-color: #25d366; color: white; border: none; border-radius: 5px; cursor: pointer; margin: 5px;">Criar Conta</button>
+</section>
     <section class="header-content">
         <h1 style="color: white; margin-left: 0;">Sejam Bem Vindos À Nossa Loja!</h1>
         <h2>
@@ -210,60 +218,72 @@
     
 </footer>
 <script>
-    // 1. Obter referências aos elementos do HTML
-    const emailInput = document.getElementById('emailInput');
-    const confirmarBtn = document.getElementById('confirmarBtn');
-    const mensagemElement = document.getElementById('mensagem');
+    // FUNÇÃO DE CADASTRO
+    async function cadastrarUsuario() {
+        const email = document.getElementById('email').value;
+        const senha = document.getElementById('senha').value;
 
-    // 2. Adicionar um "ouvinte de eventos" (event listener) ao botão
-    confirmarBtn.addEventListener('click', function() {
-        // Obter o valor digitado e remover espaços em branco no início/fim
-              const email = emailInput.value.trim(); 
-        
-        // Expressão regular (regex) simples para validar o formato do e-mail
-        // Garante que tenha o @, e que haja texto.texto após o @
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        try {
+            const conexao = await fetch('https://marcelo-ferreira-de-jesus.onrender.com/cadastro', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, senha })
+            });
 
-        //  Verificar se o e-mail é válido
-        if (emailRegex.test(email)) 
-        {
-            // E-mail válido: Exibir mensagem de sucesso
-             mensagemElement.textContent = "✅ E-mail confirmado!";
-            mensagemElement.style.color = "green"; //  cor verde para sucesso!!
-            
-            // **IMPORTANTE:** Aqui é onde se enviaria os e-mail para um servidor real meu,
-            // mas para a validação simples no front-end, isso ai ja serve.
-            
-        } else {
-            // E-mail inválido: Exibir mensagem de erro!
-            mensagemElement.textContent = "❌ Por favor, digite um e-mail válido.";
-            mensagemElement.style.color = "red"; //  cor vermelha para erro
-        }
-    });
-</script> 
-
-<script>
-        async function cadastrarUsuario() {
-            const email = document.getElementById('email').value;
-            const senha = document.getElementById('senha').value;
-
-            try {
-                const conexao = await fetch('http://127.0.0.1:5000/cadastrar', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email, senha })
-                });
-
-                if (conexao.ok) {
-                    alert("Sucesso! Usuário salvo no sistema.");
-                }
-            } catch (erro) {
-                alert("Erro: Certifique-se que o arquivo api.py está rodando no VS Code!");
+            if (conexao.ok) {
+                alert("Sucesso! Usuário salvo no sistema.");
+            } else {
+                alert("Erro ao cadastrar. Verifique os dados.");
             }
+        } catch (erro) {
+            alert("Erro: Não foi possível conectar ao servidor no Render.");
         }
-    </script>
+    }
+
+    // --- ESSA É A PARTE QUE FALTAVA: FUNÇÃO DE LOGIN ---
+    async function fazerLogin() {
+        const email = document.getElementById('email').value;
+        const senha = document.getElementById('senha').value;
+
+        try {
+            const conexao = await fetch('https://marcelo-ferreira-de-jesus.onrender.com/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, senha })
+            });
+
+            const resultado = await conexao.json();
+
+            if (conexao.ok) {
+                alert("Login efetuado com sucesso!");
+                // Aqui você pode redirecionar o usuário se desejar
+                // window.location.href = "pagina_restrita.html";
+            } else {
+                alert("Erro: " + resultado.erro);
+            }
+        } catch (erro) {
+            alert("Erro: Não foi possível conectar ao servidor no Render.");
+        }
+    }
+
+
+
+
+
+
+    document.getElementById('confirmarBtn').addEventListener('click', function() {
+    const emailInfo = document.getElementById('emailInput').value;
+    const mensagem = document.getElementById('mensagem');
+    
+    if (emailInfo.trim() !== "") {
+        mensagem.textContent = "Obrigado! Entraremos em contato em breve.";
+        mensagem.style.color = "white";
+    } else {
+        mensagem.textContent = "Por favor, insira um e-mail válido.";
+        mensagem.style.color = "red";
+    }
+});
+</script>
 </body>
 </html>
 
-</body>
-</html>
